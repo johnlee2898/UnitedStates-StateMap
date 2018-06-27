@@ -19,6 +19,7 @@ class CustomImageView(context: Context, attrs: AttributeSet) : ImageView(context
     var heightRatio: Float = 1.00f
     var mStates: Array<String>? = null
     var i: Int = 0
+    lateinit var mColor: String
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -29,15 +30,15 @@ class CustomImageView(context: Context, attrs: AttributeSet) : ImageView(context
                 var mPoint = Point(xy[0].toFloat() * widthRatio, xy[1].toFloat() * heightRatio)
                 mPoints.add(mPoint)
             }
-
-            drawPoly(canvas!!, Color.parseColor("#ff0000"), mPoints!!)
+            drawPoly(canvas!!, Color.parseColor(mColor), mPoints!!)
         }
     }
 
-    fun forceInvalidate(width: Int, height: Int, states: Array<String>?) {
+    fun forceInvalidate(width: Int, height: Int, states: Array<String>?, color: String) {
         widthRatio = width.toFloat() / 580
         heightRatio = height.toFloat() / 359
         mStates = states
+        mColor = color
         super.invalidate()
     }
 
@@ -53,14 +54,12 @@ class CustomImageView(context: Context, attrs: AttributeSet) : ImageView(context
             return
         }
         val polyPaint = Paint()
-        polyPaint.setColor(color)
-        polyPaint.setStyle(Paint.Style.FILL)
+        polyPaint.color = color
+        polyPaint.style = Paint.Style.FILL
         val polyPath = Path()
         polyPath.moveTo(points[0].x, points[0].y)
-        var i: Int
-        val len: Int
-        len = points.size
-        i = 0
+        var i = 0
+        val len: Int = points.size
         while (i < len) {
             polyPath.lineTo(points[i].x, points[i].y)
             i++
@@ -73,7 +72,6 @@ class CustomImageView(context: Context, attrs: AttributeSet) : ImageView(context
      * Simple point
      */
     private inner class Point(x: Float, y: Float) {
-
         var x = 0f
         var y = 0f
 
@@ -81,8 +79,6 @@ class CustomImageView(context: Context, attrs: AttributeSet) : ImageView(context
             this.x = x
             this.y = y
         }
-
     }
-
 
 }
