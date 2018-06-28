@@ -9,10 +9,13 @@ The library requires Android **API Level 21+**.
 
 # Public APIs:
 fun showHighlightStatesWithColor(states: Array<String>?, color: String)
-
+  
 For example：
-"#az" ---- Arizona
-"#wa" ---- Washington
+
+"#az" ---- Arizona.
+
+"#wa" ---- Washington.
 
 var states: Array<String> = arrayOf("#az", "#pa", "#wa", "#me", "#la", "#tn", "#fl", "#sd", "#in")
+
 showHighlightStatesWithColor(states, "#303f9f")
